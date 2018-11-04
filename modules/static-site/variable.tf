@@ -1,23 +1,23 @@
-variable "name" {
+variable "bucket_gocarbook_name" {
     default = ""
 }
 
-variable "acl" {
+variable "bucket_gocarbook_acl" {
     default = ""
 }
 
-variable "policy" {
+variable "bucket_gocarbook_redirect_all_requests_to" {
     default = ""
 }
 
-variable "index_document" {
-    default = "index.html"
-}
-
-variable "redirect_all_requests_to" {
+variable "bucket_wwwgocarbook_name" {
     default = ""
 }
 
+variable "bucket_wwwgocarbook_acl" {
+    default = ""
+}
 
-
-
+variable "bucket_wwwgocarbook_policy" {
+    default = ""
+}
