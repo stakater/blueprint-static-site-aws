@@ -1,62 +1,46 @@
-variable "bucket_gocarbook_name" {
+variable "bucket_acl" {
     default = ""
 }
 
-variable "bucket_gocarbook_acl" {
+variable "domain_name" {
     default = ""
 }
 
-variable "bucket_wwwgocarbook_name" {
+variable "bucket_policy" {
     default = ""
 }
 
-variable "bucket_wwwgocarbook_acl" {
-    default = ""
-}
-
-variable "bucket_wwwgocarbook_policy" {
-    default = ""
-}
-
-variable "cloudfront_enabled" {
+variable "cdn_enabled" {
   default = true
 }
 
-variable "cloudfront_ipv6_enabled" {
+variable "cdn_ipv6_enabled" {
     default = true
 }
 
-variable "cloudfront_default_root_object" {
+variable "cdn_default_root" {
     type = "string"
     default = ""
 }
 
-variable "cloudfront_domain_aliases" {
+variable "cdn_domain_aliases" {
     type = "list"
 }
 
-variable "cloudfront_viewer_protocol_policy" {
+variable "cdn_viewer_protocol_policy" {
     type = "string"
     default = "allow-all"
 }
 
-variable "cloudfront_acm_certificate_arn" {
+variable "cdn_acm_certificate_arn" {
     type = "string"
     default = ""
 }
 
-variable "route53_record_gocarbook_type" {
+variable "route53_record_type" {
     default = "A"
 }
 
-variable "route53_record_gocarbook_target_health" {
-    default = "true"
-}
-
-variable "route53_record_www_gocarbook_type" {
-    default = "A"
-}
-
-variable "route53_record_www_gocarbook_target_health" {
+variable "route53_target_health" {
     default = "true"
 }
