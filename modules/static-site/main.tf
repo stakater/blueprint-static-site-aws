@@ -1,17 +1,17 @@
 module "s3bucket_host" {
-  source = "github.com/stakater/blueprint-storage-aws.git//modules/s3/public/host"
+  source = "github.com/stakater/blueprint-storage-aws.git//modules/s3/public/host?ref=3.0.0"
   name = "${format("%s%s", "www.", var.domain_name)}"
   acl = "${var.bucket_acl}"
   policy = "${var.bucket_policy}"
 }
 module "s3bucket_redirect" {
-  source = "github.com/stakater/blueprint-storage-aws.git//modules/s3/public/redirect"
+  source = "github.com/stakater/blueprint-storage-aws.git//modules/s3/public/redirect?ref=3.0.0"
   name = "${var.domain_name}"
   acl = "${var.bucket_acl}"
   redirect_all_requests_to = "${module.s3bucket_host.bucket_name}"
 }
 module "cloudfront_s3" {
-    source = "github.com/stakater/blueprint-utilities-aws.git//modules/cloudfront"
+    source = "github.com/stakater/blueprint-utilities-aws.git//modules/cloudfront?ref=0.3.0"
     bucket-domain-name = "${module.s3bucket_host.bucket_domain_name}"
     bucket-id = "${module.s3bucket_host.bucket_name}"
     enabled = "${var.cdn_enabled}"
@@ -22,11 +22,11 @@ module "cloudfront_s3" {
     acm-certificate-arn = "${var.cdn_acm_certificate_arn}"
 }
 module "route53_hostedzone" {
-    source = "github.com/stakater/blueprint-utilities-aws.git//modules/route53/public"
+    source = "github.com/stakater/blueprint-utilities-aws.git//modules/route53/public?ref=0.3.0"
     public_domain = "${module.s3bucket_redirect.bucket_name}"
 }
 module "route53_record_redirect_bucket" {
-  source = "github.com/stakater/blueprint-utilities-aws.git//modules/route53/record"
+  source = "github.com/stakater/blueprint-utilities-aws.git//modules/route53/record/alias?ref=0.3.0"
   zone_id = "${module.route53_hostedzone.zone_id}"
   name = "${module.s3bucket_redirect.bucket_name}"
   type = "${var.route53_record_type}"
@@ -35,7 +35,7 @@ module "route53_record_redirect_bucket" {
   target_health = "${var.route53_target_health}"
 }
 module "route53_record_cloudfront-host" {
-  source = "github.com/stakater/blueprint-utilities-aws.git//modules/route53/record"
+  source = "github.com/stakater/blueprint-utilities-aws.git//modules/route53/record/alias?ref=0.3.0"
   zone_id = "${module.route53_hostedzone.zone_id}"
   name = "${module.s3bucket_host.bucket_name}"
   type = "${var.route53_record_type}"
